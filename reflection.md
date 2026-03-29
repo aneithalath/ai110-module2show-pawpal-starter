@@ -7,15 +7,14 @@
 - Briefly describe your initial UML design.
 - What classes did you include, and what responsibilities did you assign to each?
 
-In my initial design, I identified three core actiosn that the user should be able to perform in the app.
-- The user can add or edit pet care tasks, such as walks, feeding, medication, enrichment, or grooming. Each task includes details like duration and priority. 
-- The user can generate and view a daily schedule or plan for their pet. The schedule takes into account constraints such as available time, task priorities, and owner preferences.
-- The user can enter and update basic information about themselves and their pet, which helps personalize the care plan and scheduling logic. 
+In my initial UML design, I included four main classes: Owner, Pet, Task, and Planner. The Owner class was responsible for holding user information and a list of their pets. The Pet class stored details about each pet. The Task class represented individual care tasks, and the Planner class managed the scheduling of tasks. Initially, the relationships were simple: Owner had pets, Planner had tasks, and there was no explicit link between tasks and pets or between Planner and Owner.
 
 **b. Design changes**
 
 - Did your design change during implementation?
 - If yes, describe at least one change and why you made it.
+
+During implementation, I realized the need for stronger relationships between the classes. I updated the Task class to reference the specific Pet it belongs to, and I made the Planner class aware of both the Owner and their Pets, not just a list of tasks. I also added methods for managing pets in Owner and for managing tasks in Planner. These changes were made to better support multi-pet owners and to ensure the scheduling logic could access all the information it needs to generate accurate plans.
 
 ---
 

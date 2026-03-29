@@ -24,6 +24,7 @@ class Task:
     priority: int
     scheduled_time: Optional[str] = None
     notes: Optional[str] = None
+    pet: Optional[Pet] = None  # Reference to the pet this task is for
 
     def edit_task(self, **kwargs):
         pass
@@ -48,8 +49,16 @@ class Owner:
     def set_preferences(self, preferences: str):
         pass
 
+    def add_pet(self, pet: Pet):
+        self.pets.append(pet)
+
+    def remove_pet(self, pet: Pet):
+        self.pets.remove(pet)
+
 @dataclass
 class Planner:
+    owner: Owner
+    pets: List[Pet]
     tasks: List[Task] = field(default_factory=list)
     date: Optional[str] = None
     constraints: Optional[str] = None
@@ -62,3 +71,9 @@ class Planner:
 
     def get_tasks_for_day(self, date: Optional[str] = None):
         pass
+
+    def add_task(self, task: Task):
+        self.tasks.append(task)
+
+    def remove_task(self, task: Task):
+        self.tasks.remove(task)
