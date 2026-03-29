@@ -50,3 +50,20 @@ PawPal+ now includes smarter scheduling features:
 - The scheduler detects and warns about exact time conflicts (e.g., two tasks at 09:00).
 - Recurring tasks (daily/weekly) are automatically re-added when completed, making routine care easy to manage.
 - All logic is kept simple and beginner-friendly for easy extension and maintenance.
+
+## Testing PawPal+
+
+To run all tests:
+
+    python -m pytest
+
+What is tested:
+- Sorting tasks by time
+- Recurring task creation (daily/weekly)
+- Conflict detection (same time)
+- Task completion
+- Edge cases (empty pets, duplicate times)
+
+**Confidence Level:** ★★★★☆
+
+The core scheduling and recurrence logic is well-covered by tests, including edge cases. Manual UI testing is still recommended for full confidence.
