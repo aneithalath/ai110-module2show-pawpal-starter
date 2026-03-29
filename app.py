@@ -27,6 +27,7 @@ with st.form("add_pet_form"):
 # --- Add a Task Section ---
 st.header("Add a Task")
 if owner.pets:
+    all_tasks = owner.get_all_tasks()
     pet_names = [f"{pet.name} ({pet.species})" for pet in owner.pets]
     pet_lookup = {f"{pet.name} ({pet.species})": pet for pet in owner.pets}
     with st.form("add_task_form"):
@@ -49,9 +50,27 @@ else:
 # --- Display Schedule Section ---
 st.header("Today's Schedule")
 scheduler = Scheduler(owner)
-schedule_str = scheduler.format_schedule()
-st.markdown(f"```\n{schedule_str}\n```")
+all_tasks = owner.get_all_tasks()
+sorted_tasks = scheduler.sort_by_time(all_tasks)
 
+# Show conflict warnings if any
+conflicts = scheduler.detect_conflicts(sorted_tasks)
+if conflicts:
+    for warning in conflicts:
+        st.warning(warning)
+
+# Show sorted schedule as a table
+if sorted_tasks:
+    st.table([
+        {"Pet": next((pet.name for pet in owner.pets if task in pet.tasks), "?"),
+         "Description": task.description,
+         "Time": task.time,
+         "Frequency": task.frequency,
+         "Completed": "Yes" if task.completed else "No"}
+        for task in sorted_tasks
+    ])
+else:
+    st.info("No tasks scheduled yet.")
 # --- Optional: Show all pets and their tasks ---
 with st.expander("Show all pets and their tasks"):
     if owner.pets:

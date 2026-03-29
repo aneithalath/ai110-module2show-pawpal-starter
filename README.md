@@ -67,3 +67,20 @@ What is tested:
 **Confidence Level:** ★★★★☆
 
 The core scheduling and recurrence logic is well-covered by tests, including edge cases. Manual UI testing is still recommended for full confidence.
+
+## Features
+
+- **Add and manage multiple pets**: Track care for all your animals in one place.
+- **Flexible task creation**: Add tasks for walks, feeding, meds, enrichment, grooming, and more.
+- **Sorting by time**: All tasks are automatically sorted by their scheduled time for easy daily planning.
+- **Conflict warnings**: The app detects and warns you if two tasks are scheduled at the same time.
+- **Recurring tasks**: Daily and weekly tasks are automatically re-added when completed, so routines are never missed.
+- **Filter by completion**: View only incomplete or completed tasks to stay organized.
+- **Filter by pet**: Quickly see all tasks for a specific pet.
+- **Simple, readable UI**: Clean tables and clear warnings make it easy for anyone to use.
+- **Persistent data**: All information is saved during your session for a seamless experience.
+- **Beginner-friendly code**: The backend is designed for easy extension and learning.
+
+## 📸 Demo
+
+<a href="/course_images/ai110/demo.png" target="_blank"><img src='/course_images/ai110/demo.png' title='PawPal App' width='' alt='PawPal App' class='center-block' /></a>
