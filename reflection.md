@@ -30,6 +30,8 @@ During implementation, I realized the need for stronger relationships between th
 - Describe one tradeoff your scheduler makes.
 - Why is that tradeoff reasonable for this scenario?
 
+My scheduler only detects exact time conflicts (when two tasks are scheduled at the same HH:MM). It does not detect overlapping durations or more complex conflicts. This keeps the system simple and easy to understand for users, and avoids overengineering for a basic pet care app. For most home pet care, exact time conflicts are the most common and actionable issue.
+
 ---
 
 ## 3. AI Collaboration

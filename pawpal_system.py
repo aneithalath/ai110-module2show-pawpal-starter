@@ -67,6 +67,47 @@ class Owner:
         return f"Owner: {self.name}"
 
 class Scheduler:
+    def sort_by_time(self, tasks):
+        """Sort a list of tasks by their time (HH:MM)."""
+        return sorted(tasks, key=lambda t: int(t.time[:2])*60 + int(t.time[3:5]) if t.time else 0)
+
+    def filter_by_status(self, tasks, completed: bool):
+        """Filter tasks by their completion status (True/False)."""
+        return [task for task in tasks if task.completed == completed]
+
+    def filter_by_pet(self, pet_name: str):
+        """Return all tasks for a given pet name."""
+        for pet in self.owner.pets:
+            if pet.name == pet_name:
+                return pet.get_tasks()
+        return []
+
+    def detect_conflicts(self, tasks):
+        """Detect and return warnings for tasks scheduled at the same time (HH:MM)."""
+        warnings = []
+        seen = {}
+        for task in tasks:
+            if task.time:
+                if task.time in seen:
+                    warnings.append(f"Conflict: {seen[task.time]} and {task.description} both scheduled at {task.time}")
+                else:
+                    seen[task.time] = task.description
+        return warnings
+
+    def mark_task_complete(self, task, pet):
+        """Mark a task complete and, if recurring, add a new instance for the next day/week."""
+        from datetime import datetime, timedelta
+        task.mark_complete()
+        # Recurring logic
+        if task.frequency.lower() == "daily":
+            # Add a new task for the next day (same time)
+            new_task = Task(task.description, task.time, task.frequency)
+            pet.add_task(new_task)
+        elif task.frequency.lower() == "weekly":
+            # Add a new task for the same time next week
+            new_task = Task(task.description, task.time, task.frequency)
+            pet.add_task(new_task)
+        # (For simplicity, not updating a date field, just demonstrating recurrence)
     """Schedules and formats tasks for an owner."""
     def __init__(self, owner: Owner):
         self.owner = owner
